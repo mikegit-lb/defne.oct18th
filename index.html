@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Fun Reading Worksheets</title>
+    <!-- Import fun, kid-friendly fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           GLOBAL STYLES & LAYOUT
+           ========================================= */
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f0f4f8;
+            background-image: radial-gradient(#d0dbe6 15%, transparent 16%);
+            background-size: 30px 30px;
+            background-position: 0 0;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2, h3 { font-family: 'Fredoka One', cursive; font-weight: normal; margin-top: 0; }
+        
+        .main-container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* Top Toolbar */
+        .top-toolbar {
+            text-align: center;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        .top-toolbar h1 { color: #4a5568; margin-bottom: 10px; font-size: 2rem; }
+
+        /* Shared Worksheet Styles */
+        .worksheet {
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 25px;
+            margin-bottom: 40px;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+
+        .student-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .student-info input {
+            border: none;
+            border-bottom: 2px dashed #999;
+            background: transparent;
+            font-family: inherit;
+            font-size: 1.1rem;
+            padding: 2px 5px;
+            outline: none;
+            width: 180px;
+        }
+
+        .reading-box {
+            border-radius: 15px;
+            padding: 20px;
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+        }
+
+        .reading-box h2 { text-align: center; font-size: 1.5rem; margin-bottom: 15px;}
+
+        .question { margin-bottom: 20px; font-size: 1.15rem; font-weight: 600; }
+
+        .blank-input {
+            border: none;
+            background-color: transparent;
+            font-family: inherit;
+            font-size: 1.15rem;
+            width: 140px;
+            outline: none;
+            text-align: center;
+            transition: all 0.3s;
+            font-weight: 700;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            resize: vertical;
+            margin-top: 8px;
+            box-sizing: border-box;
+            font-weight: 600;
+        }
+
+        textarea:focus, .blank-input:focus { outline: none; }
+
+        /* Buttons */
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 22px;
+            font-size: 1.1rem;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.1s;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+            color: white;
+        }
+
+        button:active { transform: translateY(4px); box-shadow: none; }
+
+        .btn-check { background-color: #4caf50; }
+        .btn-reveal { background-color: #ff9800; }
+        .btn-print { background-color: #2196f3; font-size: 1.3rem; padding: 15px 35px;}
+
+        /* Answer Keys */
+        .answer-key {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.05rem;
+        }
+        .answer-key h3 { margin-bottom: 10px; }
+        .answer-key p { margin: 5px 0; }
+
+        /* Correct / Incorrect States */
+        .blank-input.correct { background-color: #c8e6c9; border-bottom: 3px solid #4caf50; color: #1b5e20; }
+        .blank-input.incorrect { background-color: #ffcdd2; border-bottom: 3px solid #e53935; color: #b71c1c; }
+
+
+        /* =========================================
+           THEME 1: SCIENCE MUSEUM (Blue/Yellow)
+           ========================================= */
+        .theme-science {
+            border: 6px dashed #ffb74d;
+        }
+        .theme-science .sticker { position: absolute; font-size: 2.5rem; }
+        .theme-science .sticker.tl { top: -20px; left: -15px; transform: rotate(-15deg); }
+        .theme-science .sticker.tr { top: -20px; right: -15px; transform: rotate(15deg); }
+        .theme-science .header h1 { text-align: center; color: #0288d1; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); margin-bottom: 20px; font-size: 2rem;}
+        .theme-science .reading-box { background-color: #fff9c4; border: 3px solid #ffeb3b; box-shadow: 3px 3px 0px #fbc02d; }
+        .theme-science .reading-box h2 { color: #f57f17; }
+        .theme-science .blank-input { border-bottom: 3px dotted #9e9e9e; color: #d32f2f; }
+        .theme-science .blank-input:focus { border-bottom-color: #0288d1; background-color: #e1f5fe; }
+        .theme-science textarea { border: 2px dashed #bdbdbd; background-color: #fafafa; }
+        .theme-science textarea:focus { border-color: #0288d1; background-color: #fff; }
+        .theme-science .answer-key { background-color: #e8f5e9; border: 2px dashed #4caf50; }
+        .theme-science .answer-key h3 { color: #2e7d32; }
+
+
+        /* =========================================
+           THEME 2: ZOO ADVENTURE (Green/Orange)
+           ========================================= */
+        .theme-zoo {
+            border: 6px solid #ff9800;
+        }
+        .theme-zoo .sticker { position: absolute; font-size: 2.5rem; }
+        .theme-zoo .sticker.tl { top: -20px; left: -15px; transform: rotate(-15deg); }
+        .theme-zoo .sticker.tr { top: -20px; right: -15px; transform: rotate(15deg); }
+        .theme-zoo .sticker.bl { bottom: -20px; left: -15px; transform: rotate(15deg); }
+        .theme-zoo .sticker.br { bottom: -20px; right: -15px; transform: rotate(-15deg); }
+        .theme-zoo .header h1 { text-align: center; color: #ff9800; text-shadow: 2px 2px 0px #ffe0b2; margin-bottom: 20px; font-size: 2rem;}
+        .theme-zoo .reading-box { background-color: #fffde7; border: 3px dashed #ffb74d; }
+        .theme-zoo .reading-box h2 { color: #ef6c00; }
+        .theme-zoo .blank-input { border-bottom: 3px dotted #ff9800; color: #d84315; }
+        .theme-zoo .blank-input:focus { border-bottom-color: #4caf50; background-color: #e8f5e9; }
+        .theme-zoo textarea { border: 2px solid #c8e6c9; background-color: #f9fbe7; color: #1b5e20; }
+        .theme-zoo textarea:focus { border-color: #4caf50; background-color: #fff; }
+        .theme-zoo .answer-key { background-color: #e3f2fd; border: 3px dashed #2196f3; color: #0d47a1;}
+        .theme-zoo .answer-key h3 { color: #1565c0; }
+
+
+        /* =========================================
+           PRINT STYLES
+           ========================================= */
+        @media print {
+            body { background: white; padding: 0; }
+            .top-toolbar, .btn-container { display: none !important; }
+            .worksheet { 
+                box-shadow: none; 
+                border: 2px solid #000; 
+                max-width: 100%; 
+                margin-bottom: 0;
+                page-break-inside: avoid;
+            }
+            .theme-science { page-break-after: always; } /* Forces Zoo sheet to next page */
+            .sticker { display: none !important; }
+            textarea { border: 1px solid #000 !important; height: auto; min-height: 60px; background: transparent !important; }
+            .blank-input { border-bottom: 1px solid #000 !important; background: transparent !important; color: #000 !important;}
+            .reading-box { background: transparent !important; border: 1px solid #000 !important; box-shadow: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    
+    <!-- Top Toolbar -->
+    <div class="top-toolbar">
+        <h1>📚 My Reading Packet 📚</h1>
+        <p>Complete both worksheets below!</p>
+        <button class="btn-print" onclick="window.print()">Print Both Worksheets 🖨️</button>
+    </div>
+
+    <!-- ==========================================
+         WORKSHEET 1: SCIENCE MUSEUM
+         ========================================== -->
+    <section class="worksheet theme-science" id="worksheet-science">
+        <div class="sticker tl">🚀</div>
+        <div class="sticker tr">🦖</div>
+        
+        <div class="header">
+            <h1>Worksheet 1: Space & Dinosaurs</h1>
+        </div>
+
+        <div class="student-info">
+            <div>Name: <input type="text" id="sci-name" placeholder="Write name here"></div>
+            <div>Date: <input type="date" id="sci-date"></div>
+        </div>
+
+        <div class="reading-box">
+            <h2>Leo's Fun Trip</h2>
+            <p>
+                Last Friday, Leo went to the science museum with his class. First, a guide gave them a map. Then, they saw big dinosaur bones! Next, they watched a movie about space. They saw bright stars in the dark sky. After that, they ate lunch. Later, they saw funny robots. The robots could walk and dance! Leo bought a toy rocket from the shop. He was very happy. He wants to learn more about space.
+            </p>
+        </div>
+
+        <form id="form-science" onsubmit="event.preventDefault();">
+            <div class="question">
+                1. The guide gave the class a <input type="text" class="blank-input" id="sci-q1" autocomplete="off">. 🗺️
+            </div>
+
+            <div class="question">
+                2. They saw <input type="text" class="blank-input" id="sci-q2" autocomplete="off"> stars in the space movie. ✨
+            </div>
+
+            <div class="question">
+                3. Leo bought a toy <input type="text" class="blank-input" id="sci-q3" autocomplete="off"> from the shop. 🚀
+            </div>
+
+            <div class="question">
+                4. What did the robots do? 🤖<br>
+                <textarea id="sci-q4" rows="2" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question">
+                5. How did Leo feel at the end? 😊<br>
+                <textarea id="sci-q5" rows="2" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="btn-container">
+                <button type="button" class="btn-check" onclick="checkAnswers('sci', {q1:['map'], q2:['bright'], q3:['rocket']})">Check Blanks ✅</button>
+                <button type="button" class="btn-reveal" onclick="toggleAnswerKey('sci-key')">Show Answers 👀</button>
+            </div>
+        </form>
+
+        <div class="answer-key" id="sci-key">
+            <h3>Answer Key:</h3>
+            <p><strong>1.</strong> map</p>
+            <p><strong>2.</strong> bright</p>
+            <p><strong>3.</strong> rocket</p>
+            <p><strong>4.</strong> They could walk and dance.</p>
+            <p><strong>5.</strong> He felt very happy.</p>
+        </div>
+    </section>
+
+
+    <!-- ==========================================
+         WORKSHEET 2: ZOO ADVENTURE
+         ========================================== -->
+    <section class="worksheet theme-zoo" id="worksheet-zoo">
+        <div class="sticker tl">🦁</div>
+        <div class="sticker tr">🐒</div>
+        <div class="sticker bl">🦒</div>
+        <div class="sticker br">🐘</div>
+
+        <div class="header">
+            <h1>Worksheet 2: A Day at the Zoo</h1>
+        </div>
+
+        <div class="student-info">
+            <div>Name: <input type="text" id="zoo-name" placeholder="Write name here"></div>
+            <div>Date: <input type="date" id="zoo-date"></div>
+        </div>
+
+        <div class="reading-box">
+            <h2>Mia's Zoo Adventure</h2>
+            <p>
+                Last Sunday, Mia went to the zoo with her dad. First, they saw tall giraffes eating leaves from high trees. Next, they watched playful monkeys swing from branch to branch. The monkeys made funny noises! Then, Mia ate a yummy chocolate ice cream. Later, they saw a big lion sleeping in the warm sun. Before they left, Mia bought a cute stuffed elephant from the gift shop. She had a great time and wants to go back soon!
+            </p>
+        </div>
+
+        <form id="form-zoo" onsubmit="event.preventDefault();">
+            <div class="question">
+                1. They saw tall <input type="text" class="blank-input" id="zoo-q1" autocomplete="off"> eating leaves. 🦒
+            </div>
+
+            <div class="question">
+                2. Mia ate a yummy <input type="text" class="blank-input" id="zoo-q2" autocomplete="off">. 🍦
+            </div>
+
+            <div class="question">
+                3. Mia bought a stuffed <input type="text" class="blank-input" id="zoo-q3" autocomplete="off">. 🐘
+            </div>
+
+            <div class="question">
+                4. What did the monkeys do? 🐒<br>
+                <textarea id="zoo-q4" rows="2" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question">
+                5. What was the lion doing? 🦁<br>
+                <textarea id="zoo-q5" rows="2" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="btn-container">
+                <button type="button" class="btn-check" onclick="checkAnswers('zoo', {q1:['giraffes','giraffe'], q2:['chocolate ice cream', 'ice cream', 'chocolate'], q3:['elephant']})">Check Blanks ✅</button>
+                <button type="button" class="btn-reveal" onclick="toggleAnswerKey('zoo-key')">Show Answers 👀</button>
+            </div>
+        </form>
+
+        <div class="answer-key" id="zoo-key">
+            <h3>Answer Key:</h3>
+            <p><strong>1.</strong> giraffes</p>
+            <p><strong>2.</strong> chocolate ice cream (or just: ice cream)</p>
+            <p><strong>3.</strong> elephant</p>
+            <p><strong>4.</strong> They swung from branch to branch and made funny noises.</p>
+            <p><strong>5.</strong> The lion was sleeping in the warm sun.</p>
+        </div>
+    </section>
+
+</div>
+
+<script>
+    // Unified JavaScript for both worksheets
+    
+    // Set today's date for both worksheets by default
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('sci-date').value = today;
+    document.getElementById('zoo-date').value = today;
+
+    /**
+     * Checks the fill-in-the-blank answers for a specific worksheet.
+     * @param {string} prefix - The prefix for the IDs (e.g., 'sci' or 'zoo')
+     * @param {object} answerKey - Object containing arrays of acceptable answers.
+     */
+    function checkAnswers(prefix, answerKey) {
+        // Loop through q1, q2, q3
+        for (let i = 1; i <= 3; i++) {
+            let inputId = prefix + '-q' + i;
+            let inputElement = document.getElementById(inputId);
+            
+            if (!inputElement) continue;
+
+            let userAnswer = inputElement.value.trim().toLowerCase();
+            let possibleAnswers = answerKey['q' + i];
+
+            // Reset classes
+            inputElement.classList.remove('correct', 'incorrect');
+
+            // Check if empty
+            if (userAnswer === "") continue;
+
+            // Check if user answer is in the array of correct answers
+            if (possibleAnswers.includes(userAnswer)) {
+                inputElement.classList.add('correct');
+            } else {
+                inputElement.classList.add('incorrect');
+            }
+        }
+    }
+
+    /**
+     * Toggles the visibility of an answer key.
+     * @param {string} keyId - The ID of the answer key div.
+     */
+    function toggleAnswerKey(keyId) {
+        const key = document.getElementById(keyId);
+        if (key.style.display === 'block') {
+            key.style.display = 'none';
+        } else {
+            key.style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
